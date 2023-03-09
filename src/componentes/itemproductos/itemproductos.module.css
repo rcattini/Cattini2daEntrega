@@ -1,0 +1,12 @@
+.container{
+    width: 30rem;
+    margin: 1rem;
+    border-radius: 5px;
+    padding: 16px;
+    text-align: center;
+    background-color: #550000;
+
+}
+.img{
+   width:  20rem
+}
