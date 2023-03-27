@@ -8,7 +8,40 @@ import Carrito from "./componentes/carrito";
 import Navbar from "./componentes/navbar/navbar";
 import Itemproductos from "./componentes/itemproductos/itemproductos";
 import Footer from "./componentes/footer";
+import db from "../db/firebase-config";
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
+import Camiseta from "./componentes/categorias/camiseta";
 
+
+function App() {
+  const [productos, setItems] = useState([]);
+  const productosCollectionRef = collection(db, "productos");
+  const [loading, setLoading] = useState(true);
+
+  const getItems = async () => {
+    const productosCollection = await getDocs(productosCollectionRef);
+    setItems(
+      productosCollection.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
+    );
+    setLoading(false);
+  };
+
+  const deleteProductos = async (id) => {
+    const docRef = doc(db, "productos", id);
+    await deleteDoc(docRef);
+    getItems();
+  };
+
+  useEffect(() => {
+    getItems();
+  }, []);
+
+  if (loading) {
+    return <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>;
+  }
+
+
+/*
 function App() {
   const [productos, setProductos] = useState([]);
   const getProductos = async () => {
@@ -19,6 +52,7 @@ function App() {
   useEffect(() => {
     getProductos();
   }, []);
+*/
 
   return (
     <div>
@@ -34,6 +68,11 @@ function App() {
           path="/productos/:id"
           element={<Itemproductos productos={productos} />}
         />
+        <Route
+          path="/productos/:category.camiseta"
+          element={<Camiseta productos={productos} />}
+        />
+        
         <Route path="/carrito" element={<Carrito />} />
         <Route path="*" element={<h2> 404</h2>} />
       </Routes>
@@ -41,5 +80,12 @@ function App() {
     </div>
   );
 }
+/*
+*/
+
+
 
 export default App;
+
+
+

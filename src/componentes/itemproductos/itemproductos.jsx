@@ -8,10 +8,11 @@ const Itemproductos = ({ productos }) => {
   return (
     <div className={styles.conteiner}>
       <h4>{producto.title}</h4>
-      <img src={producto.image} alt="" />
+      <img src={producto.image.a} alt="" />
+      <img src={producto.image.b} alt="" />
       <p>{producto.description}</p>
       <p>$ {producto.price}</p>
-      <p>Puntuacion: {producto.rating.rate}</p>
+      
     </div>
   );
 };

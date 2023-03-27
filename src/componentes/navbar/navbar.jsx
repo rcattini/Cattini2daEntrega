@@ -34,6 +34,9 @@ const Navbar = () => {
           <NavLink to="productos">
             <p>Productos</p>
           </NavLink>
+          <NavLink to="productos/:category.camiseta">
+            <p> camisetas</p>
+          </NavLink>
 
           <NavLink to="carrito">
             <IconButton aria-label="cart" color="primary">
