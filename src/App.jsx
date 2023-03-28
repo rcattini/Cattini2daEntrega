@@ -80,9 +80,9 @@ function App() {
           path="/carrito"
           element={
             <ListItems
-              items={productos}
-              setItems={setProductos}
-              deleteItem={deleteProductos}
+              productos={productos}
+              setProductos={setProductos}
+              deleteProductos={deleteProductos}
             />
           }
         />
