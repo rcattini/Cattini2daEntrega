@@ -11,16 +11,18 @@ import Footer from "./componentes/footer";
 import db from "../db/firebase-config";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import Camiseta from "./componentes/categorias/camiseta";
+import ListItems from "./componentes/ListItems";
+import ItemDetail from "./componentes/ItemDetail";
 
 
 function App() {
-  const [productos, setItems] = useState([]);
+  const [productos, setProductos] = useState([]);
   const productosCollectionRef = collection(db, "productos");
   const [loading, setLoading] = useState(true);
 
-  const getItems = async () => {
+  const getProductos = async () => {
     const productosCollection = await getDocs(productosCollectionRef);
-    setItems(
+    setProductos(
       productosCollection.docs.map((doc) => ({ ...doc.data(), id: doc.id }))
     );
     setLoading(false);
@@ -29,11 +31,11 @@ function App() {
   const deleteProductos = async (id) => {
     const docRef = doc(db, "productos", id);
     await deleteDoc(docRef);
-    getItems();
+    getProductos();
   };
 
   useEffect(() => {
-    getItems();
+    getProductos();
   }, []);
 
   if (loading) {
@@ -73,7 +75,18 @@ function App() {
           element={<Camiseta productos={productos} />}
         />
         
-        <Route path="/carrito" element={<Carrito />} />
+        
+        <Route
+          path="/carrito"
+          element={
+            <ListItems
+              items={productos}
+              setItems={setProductos}
+              deleteItem={deleteProductos}
+            />
+          }
+        />
+        <Route path="/items/:id" element={<ItemDetail />} />
         <Route path="*" element={<h2> 404</h2>} />
       </Routes>
       <Footer />
@@ -81,6 +94,7 @@ function App() {
   );
 }
 /*
+<Route path="/carrito" element={<Carrito />} />
 */
 
 
