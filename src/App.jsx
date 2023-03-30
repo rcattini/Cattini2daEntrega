@@ -14,7 +14,6 @@ import Camiseta from "./componentes/categorias/camiseta";
 import ListItems from "./componentes/ListItems";
 import ItemDetail from "./componentes/ItemDetail";
 
-
 function App() {
   const [productos, setProductos] = useState([]);
   const productosCollectionRef = collection(db, "productos");
@@ -28,33 +27,25 @@ function App() {
     setLoading(false);
   };
 
-  const deleteProductos = async (id) => {
-    const docRef = doc(db, "productos", id);
-    await deleteDoc(docRef);
-    getProductos();
-  };
-
   useEffect(() => {
     getProductos();
   }, []);
 
   if (loading) {
-    return <div class="lds-grid"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>;
+    return (
+      <div class="lds-grid">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    );
   }
-
-
-/*
-function App() {
-  const [productos, setProductos] = useState([]);
-  const getProductos = async () => {
-    const res = await axios.get("https://fakestoreapi.com/products");
-    setProductos(res.data);
-  };
-
-  useEffect(() => {
-    getProductos();
-  }, []);
-*/
 
   return (
     <div>
@@ -74,18 +65,8 @@ function App() {
           path="/productos/:category.camiseta"
           element={<Camiseta productos={productos} />}
         />
-        
-        
-        <Route
-          path="/carrito"
-          element={
-            <ListItems
-              productos={productos}
-              setProductos={setProductos}
-              deleteProductos={deleteProductos}
-            />
-          }
-        />
+
+        <Route path="/carrito" element={<Carrito />} />
         <Route path="/items/:id" element={<ItemDetail />} />
         <Route path="*" element={<h2> 404</h2>} />
       </Routes>
@@ -93,13 +74,5 @@ function App() {
     </div>
   );
 }
-/*
-<Route path="/carrito" element={<Carrito />} />
-*/
-
-
 
 export default App;
-
-
-

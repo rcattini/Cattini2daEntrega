@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import BotonAgregar from './BotonAgregar';
 import styles from "./tarjeta.module.css";
 
 export const Tarjeta = ({producto}) => {
@@ -9,6 +10,7 @@ export const Tarjeta = ({producto}) => {
         <img className={styles.img} src={producto.image} alt="" />
         <p>{producto.category}</p>
         <p>$ {producto.price}</p>
+        <BotonAgregar/>
     </div>
     </Link>
   );
