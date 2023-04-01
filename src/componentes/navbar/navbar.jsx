@@ -2,9 +2,10 @@ import { NavLink } from "react-router-dom";
 import styles from "./navbar.module.css";
 import AppBar from "@mui/material/AppBar";
 import { IconButton } from "@mui/material";
-import miImagen from "./img/logoRafa.png";
+import miImagen from "../../../public/img/logoRafa.png";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import Badge from "@mui/material/Badge";
+import Carrito from "../Cart";
 // import styled from "@emotion/styled";
 
 const Navbar = () => {
@@ -34,8 +35,14 @@ const Navbar = () => {
           <NavLink to="productos">
             <p>Productos</p>
           </NavLink>
-          <NavLink to="productos/:category.camiseta">
-            <p> camisetas</p>
+          <NavLink to="productos/camiseta">
+            <p> Camisetas</p>
+          </NavLink>
+          <NavLink to="productos/Accesorio">
+            <p>Acsesorios</p>
+          </NavLink>
+          <NavLink to="productos/Libros">
+            <p>Libros</p>
           </NavLink>
 
           <NavLink to="carrito">

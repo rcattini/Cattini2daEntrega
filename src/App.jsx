@@ -4,20 +4,23 @@ import axios from "axios";
 import Listaproductos from "./componentes/listaProductos";
 import { Routes, Route } from "react-router-dom";
 import Home from "./componentes/home";
-import Carrito from "./componentes/carrito";
+import Carrito from "./componentes/Cart";
 import Navbar from "./componentes/navbar/navbar";
 import Itemproductos from "./componentes/itemproductos/itemproductos";
 import Footer from "./componentes/footer";
 import db from "../db/firebase-config";
 import { collection, deleteDoc, doc, getDocs } from "firebase/firestore";
 import Camiseta from "./componentes/categorias/camiseta";
-import ListItems from "./componentes/ListItems";
-import ItemDetail from "./componentes/ItemDetail";
+import CarritoContext from "./Carrito.context";
+import Libros from "./componentes/categorias/libros";
+import Accesorio from "./componentes/categorias/accesorio";
+
 
 function App() {
   const [productos, setProductos] = useState([]);
   const productosCollectionRef = collection(db, "productos");
   const [loading, setLoading] = useState(true);
+  
 
   const getProductos = async () => {
     const productosCollection = await getDocs(productosCollectionRef);
@@ -26,6 +29,7 @@ function App() {
     );
     setLoading(false);
   };
+  const [carrito, setCarrito] = useState([]);
 
   useEffect(() => {
     getProductos();
@@ -45,15 +49,18 @@ function App() {
         <div></div>
       </div>
     );
+    
   }
+  
 
   return (
     <div>
+      <CarritoContext.Provider value={[ carrito, setCarrito ]}>
       <Navbar />
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route
+        <Route 
           path="/productos"
           element={<Listaproductos productos={productos} />}
         />
@@ -62,14 +69,23 @@ function App() {
           element={<Itemproductos productos={productos} />}
         />
         <Route
-          path="/productos/:category.camiseta"
+          path="/productos/camiseta"
           element={<Camiseta productos={productos} />}
         />
+        <Route
+          path="/productos/Accesorio"
+          element={<Accesorio productos={productos} />}
+        />
+        <Route
+          path="/productos/Libros"
+          element={<Libros productos={productos} />}
+        />
 
-        <Route path="/carrito" element={<Carrito />} />
-        <Route path="/items/:id" element={<ItemDetail />} />
+        <Route path="/carrito" element={<Carrito  productos={productos}/>} />
+        
         <Route path="*" element={<h2> 404</h2>} />
       </Routes>
+      </CarritoContext.Provider>
       <Footer />
     </div>
   );

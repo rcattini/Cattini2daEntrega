@@ -1,6 +1,6 @@
 .container{
     width: 30rem;
-    margin: 1rem;
+    margin: 1rem,;
     border-radius: 5px;
     padding: 16px;
     text-align: center;
@@ -9,4 +9,5 @@
 }
 .img{
    width:  20rem
+
 }

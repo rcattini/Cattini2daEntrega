@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
+import CarritoContext from "../../Carrito.context";
 import { Tarjeta } from "../tarjeta/tarjeta";
 import styles from "./listaProductos.module.scss";
 
 const Listaproductos = ({ productos }) => {
+
   return (
     <div className={styles.container}>
       {productos.map((producto) => (
