@@ -29,7 +29,12 @@ function App() {
     );
     setLoading(false);
   };
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState(localStorage.getItem("CarritoRafa") ? JSON.parse(localStorage.getItem("CarritoRafa")) : []);
+  
+  function actualizarCarrito (callback, carrito) {
+   localStorage.setItem("CarritoRafa" ,JSON.stringify(carrito))
+    callback(carrito)
+  }
 
   useEffect(() => {
     getProductos();
@@ -37,7 +42,7 @@ function App() {
 
   if (loading) {
     return (
-      <div class="lds-grid">
+      <div className="lds-grid">
         <div></div>
         <div></div>
         <div></div>
@@ -55,7 +60,7 @@ function App() {
 
   return (
     <div>
-      <CarritoContext.Provider value={[ carrito, setCarrito ]}>
+      <CarritoContext.Provider value={[ carrito, (carrito)=> actualizarCarrito(setCarrito, carrito) ]}>
       <Navbar />
 
       <Routes>
@@ -81,7 +86,7 @@ function App() {
           element={<Libros productos={productos} />}
         />
 
-        <Route path="/carrito" element={<Carrito  productos={productos}/>} />
+        <Route path="/carrito" element={<Carrito/>} />
         
         <Route path="*" element={<h2> 404</h2>} />
       </Routes>

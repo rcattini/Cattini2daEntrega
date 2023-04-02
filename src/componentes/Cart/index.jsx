@@ -2,15 +2,24 @@ import { useContext } from "react";
 import CarritoContext from "../../Carrito.context";
 
 const Carrito = () => {
-  const [ carrito] = useContext(CarritoContext);
+  const [carrito, setCarrito] = useContext(CarritoContext);
+  const borrarArticulo = (productoId) => {
+    const carritoActualizado = carrito.filter(
+      (producto) => producto.id != productoId
+    );
+    setCarrito(carritoActualizado);
+  };
 
-console.log(carrito)
   return (
-    <div><h2>Carrito</h2>
+    <div>
+      <h2>Carrito</h2>
       <div>
         {carrito.map((producto) => (
-          <div>
-            <h2>{producto.title}</h2> 
+          <div key={producto.id}> 
+            <h2>{producto.title}</h2>
+            <button onClick={() => borrarArticulo(producto.id)}>
+              Borrar articulo
+            </button>
           </div>
         ))}
       </div>

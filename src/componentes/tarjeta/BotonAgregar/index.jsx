@@ -2,11 +2,11 @@ import React, { useContext } from "react";
 import CarritoContext from "../../../Carrito.context";
 
 const BotonAgregar = ({ producto }) => {
-  const { carrito, setCarrito } = useContext(CarritoContext);
+  const [ carrito, setCarrito ] = useContext(CarritoContext);
   const addCarrito = () => {
-    const nuevoProducto = producto.id;
+    const nuevoProducto = producto;
     setCarrito([...carrito, nuevoProducto]);
-    console.log(carrito)
+    
   };
   return <button onClick={addCarrito}>Agregar al Carrito</button>;
 };
